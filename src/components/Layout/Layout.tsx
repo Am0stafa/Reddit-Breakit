@@ -1,19 +1,17 @@
-import React from 'react';
+import React from "react";
+import Navbar from "../../Navbar/Navbar";
 
-//? we create types for each component and these types specify the props that the component accepts
-interface Props {
-    children: React.ReactNode;
-}
+type LayoutProps = {
+  children: any;
+};
 
-const Layout: React.FC<Props> = ({ children }) => {
-    
-    return(
-        <>
-            {/* <Navbar /> */}
-            <main>
-                {children}
-            </main>
-        </>
-    )
-}
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <>
+      <Navbar />
+      <main>{children}</main>
+    </>
+  );
+};
+
 export default Layout;
