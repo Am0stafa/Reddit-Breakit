@@ -73,8 +73,10 @@ const AuthModel: React.FC = () => {
                   <AuthInput />
                 </>
               ) : (
+                // if we are not logining in or siging up then we are resetting
                 <ResetPassword />
-              )}
+              )
+              }
             </Flex>
           </ModalBody>
         </ModalContent>

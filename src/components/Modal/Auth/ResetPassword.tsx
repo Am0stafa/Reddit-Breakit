@@ -11,18 +11,17 @@ type ResetPasswordProps = {
     toggleView: (view: ModalView) => void;
 };
 */
-
 const ResetPassword: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModelState);
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState(false);
-  const [sendPasswordResetEmail, sending, error] =
-    useSendPasswordResetEmail(auth);
+  const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(auth);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     await sendPasswordResetEmail(email);
+    //* this is going to send an email to that email and once its send its going set success to true so that we can display a message
     setSuccess(true);
   };
 
@@ -33,7 +32,7 @@ const ResetPassword: React.FC = () => {
         Reset your password
       </Text>
       {success ? (
-        <Text mb={4}>Check your email :)</Text>
+        <Text mb={4}>Check your email to proceed</Text>
       ) : (
         <>
           <Text fontSize="sm" textAlign="center" mb={2}>
@@ -111,4 +110,5 @@ const ResetPassword: React.FC = () => {
     </Flex>
   );
 };
+
 export default ResetPassword;

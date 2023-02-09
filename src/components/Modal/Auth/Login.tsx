@@ -25,7 +25,6 @@ const Login: React.FC<LoginProps> = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // if (loading) return;
     signInWithEmailAndPassword(loginForm.email, loginForm.password);
   };
 

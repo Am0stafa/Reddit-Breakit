@@ -136,9 +136,12 @@ const SignUp: React.FC = () => {
             {error ||
               FIREBASE_ERRORS[
                 userError.message as keyof typeof FIREBASE_ERRORS
-              ]}
+              ]// be more specific of what type it is that we are tring to use to index that particular object
+
+            }
           </Text>
-        ))}
+        ))
+      }
       <Button
         width="100%"
         height="36px"
