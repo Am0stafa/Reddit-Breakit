@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="https://user-images.githubusercontent.com/99184393/196572825-73d2a0dc-f96e-45af-884b-77ed7cf20184.png" alt="logo" width="200" height="auto" />
+  <img src="https://media.wired.com/photos/5b620d11dcaf530b8e3ace67/master/w_240,c_limit/Reddit%20User%20Data%20Breached%20Because%20of%20Woefully%20Insecure%20Two-Factor%20Setup.jpg" alt="logo" width="200" height="auto" />
   
   <h1>Reddit Clone with REACT.JS</h1>
   
