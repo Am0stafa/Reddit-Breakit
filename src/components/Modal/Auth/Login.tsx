@@ -2,12 +2,13 @@ import { Button, Flex, Input, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
-
 import { authModelState } from "../../../atoms/authModalAtom";
 import { auth } from "../../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
 
-type LoginProps = {};
+type LoginProps = {
+
+};
 
 const Login: React.FC<LoginProps> = () => {
   const setAuthModelState = useSetRecoilState(authModelState);
@@ -20,19 +21,18 @@ const Login: React.FC<LoginProps> = () => {
   const focusedInputBg = useColorModeValue("white", "#2D3748");
   const placeholderColor = useColorModeValue("gray.500", "#CBD5E0");
 
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // if (loading) return;
     signInWithEmailAndPassword(loginForm.email, loginForm.password);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // update state
     setLoginForm((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value, // set the email or the password
     }));
   };
 
@@ -113,7 +113,7 @@ const Login: React.FC<LoginProps> = () => {
           Reset
         </Text>
       </Flex>
-      <Flex fontSize="9pt" justifyContent="center">
+      <Flex fontSize="10pt" justifyContent="center">
         <Text mr={1}>New Here?</Text>
         <Text
           color="blue.500"

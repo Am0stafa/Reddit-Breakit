@@ -68,7 +68,7 @@ const AuthModel: React.FC = () => {
                 <>
                   <OAuthButtons />
                   <Text color="gray.500" fontWeight={700}>
-                    OR
+                    ---------- OR ----------
                   </Text>
                   <AuthInput />
                 </>

@@ -6,12 +6,12 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../../../firebase/clientApp";
 
 const OAuthButtons: React.FC = () => {
-  const [signInWithGoogle, userCred, loading, error] =
-    useSignInWithGoogle(auth);
+  const [signInWithGoogle, userCred, loading, error] = useSignInWithGoogle(auth);
   const hoverBg = useColorModeValue("gray.50", "#2A4365");
+
+  // a function to create a user document in firestore
   const createUserDocument = async (user: User) => {
     const userDocRef = doc(firestore, "users", user.uid);
-
     await setDoc(userDocRef, JSON.parse(JSON.stringify(user)));
   };
 
@@ -24,18 +24,20 @@ const OAuthButtons: React.FC = () => {
   return (
     <Flex direction="column" width="100%" mb={4}>
       <Button
-        variant="oauth"
+        variant="oauth" // for pre made styles in button.ts
         _hover={{ bg: hoverBg }}
         mb={2}
         isLoading={loading}
         onClick={() => signInWithGoogle()}
       >
-        <Image src="/images/googlelogo.png" height="20px" mr={4} />
+        <Image src="/images/googlelogo.png" height="20px" mr={4} alt='google logo' />
         Continue with Google
       </Button>
-      <Button variant="oauth" _hover={{ bg: hoverBg }}>
+
+      {/* <Button variant="oauth" _hover={{ bg: hoverBg }}>
         Some Other Provider
-      </Button>
+      </Button> */}
+      
       {error && <Text>{error.message}</Text>}
     </Flex>
   );

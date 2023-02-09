@@ -5,7 +5,9 @@ import { authModelState } from "../../../atoms/authModalAtom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-type AuthInputProps = {};
+type AuthInputProps = {
+    
+};
 
 const AuthInput: React.FC<AuthInputProps> = () => {
   const modelState = useRecoilValue(authModelState);

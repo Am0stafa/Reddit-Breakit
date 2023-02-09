@@ -11,11 +11,13 @@ import { FIREBASE_ERRORS } from "../../../firebase/errors";
 
 const SignUp: React.FC = () => {
   const setAuthModelState = useSetRecoilState(authModelState);
+
   const [signUpForm, setSignUpForm] = useState({
     email: "",
     password: "",
     conformPassword: "",
   });
+
   const [error, setError] = useState("");
   const searchBorder = useColorModeValue("blue.500", "#4A5568");
   const inputBg = useColorModeValue("gray.50", "#4A5568");
@@ -24,11 +26,11 @@ const SignUp: React.FC = () => {
 
   //console.log(signUpForm);
 
-  const [createUserWithEmailAndPassword, userCred, loading, userError] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, userCred, loading, userError] = useCreateUserWithEmailAndPassword(auth);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (error) setError("");
 
     if (signUpForm.password !== signUpForm.conformPassword) {
@@ -40,7 +42,6 @@ const SignUp: React.FC = () => {
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // update state
     setSignUpForm((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
@@ -149,7 +150,7 @@ const SignUp: React.FC = () => {
         Sign Up
       </Button>
       <Flex fontSize="9pt" justifyContent="center">
-        <Text mr={1}>Already a redditor?</Text>
+        <Text mr={1}>Already a User?</Text>
         <Text
           color="blue.500"
           fontWeight={700}
