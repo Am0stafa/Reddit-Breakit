@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+//! Root component
 import {
   Button,
   Flex,
@@ -21,11 +23,11 @@ import OAuthButtons from "./OAuthButtons";
 import ResetPassword from "./ResetPassword";
 
 const AuthModel: React.FC = () => {
-  //const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modelState, setModelState] = useRecoilState(authModelState);
+  const [modelState, setModelState] = useRecoilState(authModelState); // get a recoil atom
   const [user, loading, error] = useAuthState(auth);
 
   const handleClose = () => {
+    // use the set function to close it
     setModelState((prev) => ({
       ...prev,
       open: false,
@@ -33,8 +35,9 @@ const AuthModel: React.FC = () => {
   };
 
   useEffect(() => {
+    // a bug that we have is after a user login it is still poped up so we close it here
     if (user) handleClose();
-    //console.log(user, "🔥🔥");
+    //console.log(user, "🔥");
   }, [user]);
 
   return (
@@ -43,7 +46,7 @@ const AuthModel: React.FC = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader textAlign="center">
-            {modelState.view === "login" && "Login"}
+            {modelState.view === "login" && "Welcome back, Login"}
             {modelState.view === "signup" && "Sign Up"}
             {modelState.view === "resetPassword" && "Reset Password"}
           </ModalHeader>

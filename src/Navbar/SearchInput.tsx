@@ -8,11 +8,13 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { User } from "firebase/auth";
+import { User } from "firebase/auth"; // import the User type from firebase
 
 type SearchInputProps = {
   user?: User | null;
 };
+
+// TODO: i takes the user as an import so that ...
 
 const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   const bg = useColorModeValue("gray.100", "whiteAlpha.100");
@@ -21,14 +23,19 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   const searchBorder = useColorModeValue("gray.200", "#4A5568");
 
   return (
-    <Flex flexGrow={1} maxWidth={user ? "auto" : "600px"} mr={2} align="center">
+    <Flex 
+        flexGrow={1} // this means that the search input will take up all the space that is left parent component
+        maxWidth={user ? "auto" : "600px"} 
+        mr={2} 
+        align="center">
+
       <InputGroup>
         <InputLeftElement pointerEvents="none">
           <SearchIcon color={iconColor} mb={1} />
         </InputLeftElement>
         <Input
-          type="tel"
-          placeholder="Search Reddit"
+        //   type="tel"
+          placeholder="Search Reddit!!"
           fontSize="10pt"
           bg={bg}
           _placeholder={{ colors: "gray.500" }}

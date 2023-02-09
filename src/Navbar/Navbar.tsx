@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/alt-text */
 import { Flex, Image, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -77,6 +79,7 @@ const Navbar: React.FC = () => {
     } else return;
   }, [user, firestore, userCreates]);
 
+  //! Flex is just a div with css flexbox already applied to it
   return (
     <Flex
       bg={bg}
@@ -91,7 +94,9 @@ const Navbar: React.FC = () => {
         cursor="pointer"
         onClick={() => onSelectMenuItem(defaultMenuItem)}
       >
-        <Image src="/images/redditFace.svg" height="30px" />
+        {/* the logo and the reddit text is separate as i couldnt find both together */}
+        {/* to access images we create an image folder in the public file */}
+        <Image src="/images/redditFace.svg" height="35px" />
         <Image
           src={
             colorMode === "light"
@@ -99,12 +104,12 @@ const Navbar: React.FC = () => {
               : "/images/Reddit-Word-Dark.svg"
           }
           height="46px"
-          display={{ base: "none", md: "unset" }}
+          display={{ base: "none", md: "unset" }} // display none for mobile view and display unset for desktop view
         />
       </Flex>
-      {user && <Directory />}
+      {user && <Directory />} {/* drop down menu item  */}
       <SearchInput user={user} />
-      <RightContent user={user} />
+      <RightContent user={user} /> {/* which contain all the authentication buttons and drop down menu  */}
     </Flex>
   );
 };

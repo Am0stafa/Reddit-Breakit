@@ -3,6 +3,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 import { authModelState } from "../../atoms/authModalAtom";
 
+// this is the login and sign up buttons
 const AuthButtons: React.FC = () => {
   const setAuthModelState = useSetRecoilState(authModelState);
 
@@ -11,10 +12,10 @@ const AuthButtons: React.FC = () => {
       <Button
         variant="outline"
         height="28px"
-        display={{ base: "none", sm: "flex" }}
+        display={{ base: "none", sm: "flex" }} // base = mobile screen
         width={{ base: "70px", md: "110px" }}
         mr={2}
-        onClick={() => setAuthModelState({ open: true, view: "login" })}
+        onClick={() => setAuthModelState({ open: true, view: "login" })} // trigger the modal to popup
       >
         Log In
       </Button>
