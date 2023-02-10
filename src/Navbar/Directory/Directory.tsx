@@ -1,3 +1,4 @@
+import React from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Flex,
@@ -9,8 +10,6 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
-
 import useDirectory from "../../hooks/useDirectory";
 import Communities from "./Communities";
 
@@ -41,6 +40,7 @@ const Directory: React.FC = () => {
                 borderRadius="full"
                 boxSize="24px"
                 mr={2}
+                alt='home'
               />
             ) : (
               <>

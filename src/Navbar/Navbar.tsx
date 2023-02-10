@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
           display={{ base: "none", md: "unset" }} // display none for mobile view and display unset for desktop view
         />
       </Flex>
-      {user && <Directory />} {/* drop down menu item  */}
+      {user && <Directory />} {/* drop down menu item for the community and stuff  */}
       <SearchInput user={user} />
       <RightContent user={user} /> {/* which contain all the authentication buttons and drop down menu  */}
     </Flex>

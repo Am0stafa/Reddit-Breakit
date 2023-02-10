@@ -34,7 +34,7 @@ const Icons: React.FC = () => {
   return (
     <Flex>
       <Flex
-        display={{ base: "none", md: "flex" }}
+        display={{ base: "none", md: "flex" }} // disapper on mobile
         align="center"
         borderRadius="1px solid"
         borderColor="gray.200"
@@ -49,6 +49,7 @@ const Icons: React.FC = () => {
         >
           <Icon as={BsArrowUpRightCircle} fontSize={20} />
         </Flex>
+
         <Flex
           mr={1.5}
           ml={1.5}
@@ -59,6 +60,7 @@ const Icons: React.FC = () => {
         >
           <Icon as={IoFilterCircleOutline} fontSize={22} />
         </Flex>
+
         <Flex
           mr={1.5}
           ml={1.5}
@@ -69,8 +71,10 @@ const Icons: React.FC = () => {
         >
           <Icon as={IoVideocamOutline} fontSize={22} />
         </Flex>
+
       </Flex>
       <>
+        {/* this on the only responisve one */}
         <Flex
           mr={1.5}
           ml={1.5}
@@ -90,10 +94,11 @@ const Icons: React.FC = () => {
             as={motion.div}
             animation={animation}
           >
-            New
+            
           </Text>
           <Icon as={BsChatDots} fontSize={20} />
         </Flex>
+
         <Flex
           mr={1.5}
           ml={1.5}
@@ -104,6 +109,7 @@ const Icons: React.FC = () => {
         >
           <Icon as={IoNotificationsOutline} fontSize={20} />
         </Flex>
+
         <Flex
           display={{ base: "none", md: "flex" }}
           mr={1.5}
@@ -115,6 +121,7 @@ const Icons: React.FC = () => {
         >
           <Icon as={GrAdd} fontSize={20} />
         </Flex>
+
       </>
     </Flex>
   );

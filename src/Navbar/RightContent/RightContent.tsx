@@ -8,7 +8,7 @@ import Icons from "./Icons";
 import UserMenu from "./UserMenu";
 
 type RightContentProps = {
-  user?: User | null; // this indecate
+  user?: User | null; // this indicates null undefined(?) and User
 };
 
 const RightContent: React.FC<RightContentProps> = ({ user }) => {

@@ -50,6 +50,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 
   return (
     <Menu>
+
       <MenuButton
         cursor="pointer"
         padding="0px 6px"
@@ -78,7 +79,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                   </Text>
                   <Flex alignItems="center">
                     <Icon as={IoSparkles} color="brand.100" mr={1} />
-                    <Text color="gray.400">1 karma</Text>
+                    <Text color="gray.400">{1} karma</Text>
                   </Flex>
                 </Flex>
               </>
@@ -89,6 +90,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
           <ChevronDownIcon />
         </Flex>
       </MenuButton>
+
       <MenuList mt={2}>
         <MenuItem fontSize="10pt" fontWeight="700" closeOnSelect={false}>
           <Flex gap={2} align="center">
@@ -141,6 +143,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
           </>
         )}
       </MenuList>
+      
     </Menu>
   );
 };

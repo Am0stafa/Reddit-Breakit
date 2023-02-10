@@ -14,7 +14,7 @@ type SearchInputProps = {
   user?: User | null;
 };
 
-// TODO: i takes the user as an import so that ...
+//^ i takes the user as an import so that the search grow
 
 const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   const bg = useColorModeValue("gray.100", "whiteAlpha.100");
