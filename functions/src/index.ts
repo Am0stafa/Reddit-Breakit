@@ -9,3 +9,4 @@ export const createUserDocument = functions.auth.user().onCreate(async (user) =>
       .doc(user.uid)
       .set(JSON.parse(JSON.stringify(user))); // this here is due to a serialization error
   });
+  

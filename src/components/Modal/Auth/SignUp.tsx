@@ -55,11 +55,11 @@ const SignUp: React.FC = () => {
     );
   };
 
-  useEffect(() => {
-    if (userCred) {
-      createUserDocument(userCred.user);
-    }
-  }, [userCred]);
+//   useEffect(() => {
+//     if (userCred) {
+//       createUserDocument(userCred.user);
+//     }
+//   }, [userCred]);
 
   return (
     <form onSubmit={onSubmit}>
