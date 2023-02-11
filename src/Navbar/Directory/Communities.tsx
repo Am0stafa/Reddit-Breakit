@@ -15,7 +15,9 @@ import { CommunityState } from "../../atoms/CommunitiesAtom";
 import CreateCommunityModel from "../../components/Modal/CreateCommunity/CreateCommunityModel";
 import MenuListItem from "./MenuListItem";
 
-type CommunitiesProps = {};
+type CommunitiesProps = {
+    
+};
 
 const Communities: React.FC<CommunitiesProps> = () => {
   const [open, setOpen] = useState(false);

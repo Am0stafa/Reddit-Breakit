@@ -4,10 +4,8 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 const db = admin.firestore();
 
-export const createUserDocument = functions.auth
-  .user()
-  .onCreate(async (user) => {
+export const createUserDocument = functions.auth.user().onCreate(async (user) => {
     db.collection("users")
       .doc(user.uid)
-      .set(JSON.parse(JSON.stringify(user)));
+      .set(JSON.parse(JSON.stringify(user))); // this here is due to a serialization error
   });
