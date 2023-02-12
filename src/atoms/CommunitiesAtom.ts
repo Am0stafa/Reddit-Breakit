@@ -1,3 +1,4 @@
+//! global community state that we need through our application
 import { Timestamp } from "firebase/firestore";
 import { atom } from "recoil";
 

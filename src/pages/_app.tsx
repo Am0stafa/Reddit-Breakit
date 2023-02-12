@@ -6,7 +6,6 @@ import { theme } from "../chakra/theme";
 import Layout from "../components/Layout/Layout";
 import "../styles/globals.css";
 
-// wrape the entire application in the recoil provider
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>

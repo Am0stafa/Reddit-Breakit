@@ -18,16 +18,15 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ communityData }) => {
   const bg = useColorModeValue("white", "#1A202C");
-  const { communityStateValue, onJoinOrCommunity, loading } =
-    useCommunityData();
-  const isJoined = !!communityStateValue.mySnippets.find(
-    (item) => item.communityId === communityData.id
-  );
+
+  const { communityStateValue, onJoinOrCommunity, loading } = useCommunityData();
+  const isJoined = !!communityStateValue.mySnippets.find( (item) => item.communityId === communityData.id);
 
   return (
     <Flex direction="column" width="100%" height="146px">
       <Box height="50%" bg="blue.400" />
       <Flex justifyContent="center" bg={bg} height="50%">
+
         <Flex width="95%" maxWidth="860px">
           {communityStateValue.currentCommunity?.imageURL ? (
             <Image
@@ -51,29 +50,35 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
               borderRadius="50%"
             />
           )}
+
           <Flex padding="10px 16px">
             <Flex direction="column" mr={6}>
+        
               <Text fontWeight={800} fontSize="16px">
                 {communityData.id}
               </Text>
+
               <Text fontWeight={600} fontSize="10px" color="gray.500">
                 r/{communityData.id}
               </Text>
+
             </Flex>
+
             <Button
               variant={isJoined ? "outline" : "solid"}
               height="30px"
               pr={6}
               pl={6}
               isLoading={loading}
-              onClick={() => {
-                onJoinOrCommunity(communityData, isJoined);
-              }}
+              onClick={() => { onJoinOrCommunity(communityData, isJoined) }}
             >
               {isJoined ? "Joined" : "Join"}
             </Button>
+            
           </Flex>
+
         </Flex>
+
       </Flex>
     </Flex>
   );
