@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          console.log("User Already Created");
+          console.log("UAC");
           setUserCreate(false);
         } else {
           setUserCreate(true);

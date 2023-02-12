@@ -67,14 +67,28 @@ import {
     const onCommunityTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setCommunityType(event.target.name);
     };
-  
+
+    const updateCommunitySnippet = async (userId: string, transaction: any) => {
+        if (!userId) return;
+                                      // doc(instance,path) path = collection/document/collection/document ....
+        const communityUpdateDocRef = doc(firestore,`communities/${CommunitiesName}/userInCommunity/${userId}`);
+    
+        await transaction.set(communityUpdateDocRef, {
+          userId: userId,
+          userEmail: user?.email,
+        });
+      };
+
     // for creating the community
     const handleCreateCommunity = async () => {
   
-      /**
+      /*
        * We have 2 requirements
        * 1) validate the community name that it is between 3 and 21 characters
        * 2) that the community name is not already taken by someone else
+       * 3) that the community name does not contain any special characters
+       * 
+       * 4) when a user create a community we create the community in the community collection and add that community to the usersCommunity Snippets basically automatically joining that user to the community
        */
   
   
@@ -95,10 +109,14 @@ import {
           // If Valid name, Create Community
   
       try {
-        // create a reference to the document (firestore instance, name, Id which is the name)
+
+        // create a reference to the document (firestore instance, name, Id ) OR (firestore instance, Path )
         const communityDocRef = doc(firestore, "communities", CommunitiesName);
-  
+        
+        // this is what create the community
         await runTransaction(firestore, async (transaction) => {
+          // this block: create the community in the community collection and add that community to the usersCommunity Snippets basically automatically joining that user to the community
+
           const communityDoc = await transaction.get(communityDocRef);
           
           // check if the name is already taken
@@ -111,34 +129,31 @@ import {
             creatorId: user?.uid,
             createdAt: serverTimestamp(),
             numberOfMembers: 1,
-            privacyTYpe: communityType, //TODO: typo
+            privacyTYpe: communityType,
           });
   
-          //update
+          // add in the community the user
           updateCommunitySnippet(user?.uid!, transaction);
   
-          // create
+          // add in the user the community
           transaction.set(
-            doc(
-              firestore,
-              `users/${user?.uid}/communitySnippets`,
-              CommunitiesName
-            ),
+            doc( firestore,`users/${user?.uid}/communitySnippets`,CommunitiesName ),
             {
               communityId: CommunitiesName,
               isModerator: true,
               updateTimeStamp: serverTimestamp() as Timestamp,
             }
           );
+
         });
   
         handleClose();
-        toggleMenuOpen();
+        toggleMenuOpen(); //??
         setCommunityType("");
         setCommunities("");
         router.push(`r/${CommunitiesName}`);
       } catch (error: any) {
-        console.log("Function: HandleCreateCommunity Error", error);
+        console.log("Function: HandleCreateCommunity Error: ", error);
         setError(error.message);
       }
   
@@ -147,19 +162,7 @@ import {
       
     };
     
-    const updateCommunitySnippet = async (userId: string, transaction: any) => {
-      if (!userId) return;
-  
-      const communityUpdateDocRef = doc(
-        firestore,
-        `communities/${CommunitiesName}/userInCommunity/${userId}`
-      );
-  
-      await transaction.set(communityUpdateDocRef, {
-        userId: userId,
-        userEmail: user?.email,
-      });
-    };
+
   
     return (
       <>
