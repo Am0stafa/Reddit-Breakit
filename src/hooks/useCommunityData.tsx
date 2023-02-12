@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   collection,
   doc,
@@ -22,10 +23,11 @@ import { auth, firestore } from "../firebase/clientApp";
 
 const useCommunityData = () => {
   const [user] = useAuthState(auth);
+
   const router = useRouter();
+
   const setAuthModelState = useSetRecoilState(authModelState);
-  const [communityStateValue, setCommunityStateValue] =
-    useRecoilState(CommunityState);
+  const [communityStateValue, setCommunityStateValue] = useRecoilState(CommunityState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 

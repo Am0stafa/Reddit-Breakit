@@ -42,7 +42,7 @@ import {
   const CreateCommunityModel: React.FC<CreateCommunityModelProps> = ({ open,handleClose }) => {
     const [user] = useAuthState(auth);
   
-    const [CommunitiesName, setCommunities] = useState("");
+    const [CommunitiesName, setCommunities] = useState("public");
     const [charsRemaining, setCharsRemaining] = useState(21);
     const [communityType, setCommunityType] = useState("");
     const [error, setError] = useState(""); // indicate to a user if something is wrong
@@ -129,7 +129,7 @@ import {
             creatorId: user?.uid,
             createdAt: serverTimestamp(),
             numberOfMembers: 1,
-            privacyTYpe: communityType,
+            privacyType: communityType, //TODO: typo
           });
   
           // add in the community the user
