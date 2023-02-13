@@ -19,8 +19,10 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ communityData }) => {
   const bg = useColorModeValue("white", "#1A202C");
 
-  const { communityStateValue, onJoinOrCommunity, loading } = useCommunityData();
+  const { communityStateValue, onJoinOrCommunity, loading } = useCommunityData()
   const isJoined = !!communityStateValue.mySnippets.find( (item) => item.communityId === communityData.id);
+  // search througth the id and find if the id matches the id of the community data
+  // !! booleaniez it as find return the item or undefined but we expect to receive a boolen
 
   return (
     <Flex direction="column" width="100%" height="146px">
