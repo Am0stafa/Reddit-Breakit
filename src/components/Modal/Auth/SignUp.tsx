@@ -47,8 +47,12 @@ const SignUp: React.FC = () => {
       setError('');
     }
     
-
-    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+    try{
+        createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+    }catch{
+        console.log("Signup Error", error);
+        setError(error.message);
+    }
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
