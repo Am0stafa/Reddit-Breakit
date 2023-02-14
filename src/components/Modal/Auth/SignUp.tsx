@@ -41,8 +41,10 @@ const SignUp: React.FC = () => {
     // check that the password length is more than 8 and contain a number else set the error state
     if (signUpForm.password.length < 8) {
       setError('Password must be at least 8 characters long.');
+      return;
     } else if (!/\d/.test(signUpForm.password)) {
       setError('Password must contain at least a number.');
+      return;
     } else {
       setError('');
     }
@@ -51,7 +53,6 @@ const SignUp: React.FC = () => {
         createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
     }catch{
         console.log("Signup Error", error);
-        setError(error.message);
     }
   };
 
