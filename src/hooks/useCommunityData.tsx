@@ -103,11 +103,11 @@ const useCommunityData = () => {
 
 
     useEffect(() => {
-    const { communityId } = router.query;
+        const { communityId } = router.query;
 
-    if (communityId && !communityStateValue.currentCommunity) {
-        getCommunityData(communityId as string);
-    }
+        if (communityId && !communityStateValue.currentCommunity) {
+            getCommunityData(communityId as string);
+        }
     }, [router.query, communityStateValue.currentCommunity]);
 
 
@@ -156,29 +156,29 @@ const useCommunityData = () => {
     };
 
     const updateCommunitySnippet = async ( communityData: Community, userId: string) => {
-    if (!communityData && !userId) return;
+        if (!communityData && !userId) return;
 
-    try {
-        const batch = writeBatch(firestore);
+        try {
+            const batch = writeBatch(firestore);
 
-        const newSnippet = {
-        userId: userId,
-        userEmail: user?.email,
-        };
+            const newSnippet = {
+            userId: userId,
+            userEmail: user?.email,
+            };
 
-        batch.set(
-        doc(
-            firestore,
-            `communities/${communityData.id}/userInCommunity/${userId}`
-        ),
-        newSnippet
-        );
+            batch.set(
+            doc(
+                firestore,
+                `communities/${communityData.id}/userInCommunity/${userId}`
+            ),
+            newSnippet
+            );
 
-        await batch.commit();
-    } catch (error: any) {
-        console.log("JoinCommunity Error", error);
-        setError(error.message);
-    }
+            await batch.commit();
+        } catch (error: any) {
+            console.log("JoinCommunity Error", error);
+            setError(error.message);
+        }
     };
 
     const leaveCommunity = async (communityId: string) => {
