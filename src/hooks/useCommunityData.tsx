@@ -50,7 +50,6 @@ const useCommunityData = () => {
     //! fetch the communitySnippets for the current user and store them inside of setCommunityStateValue atom
     const getMySnippets = async () => {
         setLoading(true);
-
         try {
             //? grab all the documents inside of this community snippet collection for this current user: returning and array of documents
             const snippetDocs = await getDocs( collection(firestore, `users/${user?.uid}/communitySnippets`) );
@@ -71,7 +70,7 @@ const useCommunityData = () => {
         setLoading(false);
     };
     
-    // on evey load either clear the state or fill the state
+    // on every load either clear the state or fill the state
     useEffect(() => {
         if (!user) {
             setCommunityStateValue((prev) => ({
@@ -116,33 +115,33 @@ const useCommunityData = () => {
         //? there are two database updates that we need to make that we are going to group together into a batch
         //* 1) creating a new communitySnippets for the user, by taking this community and create a snippet then add it to the user communitySnippets
         //* 2) updating the number of members on this community
-        //? After a sucessfull batch we need to update our recoil state (communityStateValue.mySnippets) to refelect the update
+        //? After a successfully batch we need to update our recoil state (communityStateValue.mySnippets) to reflect the update
         
         try {
+            // create a batch object
             const batch = writeBatch(firestore);
 
+            // create the snippet
             const newSnippet: CommunitySnippet = {
                 communityId: communityData.id,
                 imageURL: communityData.imageURL || "",
                 isModerator: user?.uid === communityData.creatorId,
                 updateTimeStamp: serverTimestamp() as Timestamp,
             };
+            /*
+                The doc function might be a shorthand for this process, allowing you to create a reference to a Firestore document with a simpler and more concise syntax.
+                set: takes the reference and data
+            */
 
-            batch.set(
-            doc(
-                firestore,
-                `users/${user?.uid}/communitySnippets`,
-                communityData.id
-            ),
-            newSnippet
-            );
+                                    //path to the collection
+            batch.set(doc(firestore, `users/${user?.uid}/communitySnippets`, communityData.id), newSnippet);
 
-            batch.update(doc(firestore, "communities", communityData.id), {
-                numberOfMembers: increment(1),
-            });
-
+            batch.update(doc(firestore, "communities", communityData.id), { numberOfMembers: increment(1) });
+            
+            // commit the chances
             await batch.commit();
 
+            // update the atom
             setCommunityStateValue((prev) => ({
                 ...prev,
                 mySnippets: [...prev.mySnippets, newSnippet],
@@ -150,7 +149,7 @@ const useCommunityData = () => {
 
             updateCommunitySnippet(communityData, user?.uid!);
         } catch (error: any) {
-            console.log("JoinCommunity Error", error);
+            console.log("JoinCommunity Error: ", error);
             setError(error.message);
         }
         setLoading(false);
@@ -191,21 +190,17 @@ const useCommunityData = () => {
         try {
             const batch = writeBatch(firestore);
 
-            batch.delete(
-            doc(firestore, `users/${user?.uid}/communitySnippets`, communityId)
-            );
+            batch.delete(doc(firestore, `users/${user?.uid}/communitySnippets`, communityId));
 
-            batch.update(doc(firestore, "communities", communityId), {
-                numberOfMembers: increment(-1),
-            });
+            // no decrement function
+            batch.update(doc(firestore, "communities", communityId), { numberOfMembers: increment(-1) });
 
             await batch.commit();
 
+            // update the atom
             setCommunityStateValue((prev) => ({
                 ...prev,
-                mySnippets: prev.mySnippets.filter(
-                    (item) => item.communityId !== communityId
-                ),
+                mySnippets: prev.mySnippets.filter( (item) => item.communityId !== communityId ),
             }));
         } catch (error: any) {
             console.log("JoinCommunity Error", error);

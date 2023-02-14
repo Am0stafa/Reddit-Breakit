@@ -1,4 +1,4 @@
-//! global community state that we need through our application as multiple components need the community snippet data
+//! global community state that we need through our application as multiple components need the community snippet data which is just the communities a user is in
 import { Timestamp } from "firebase/firestore";
 import { atom } from "recoil";
 

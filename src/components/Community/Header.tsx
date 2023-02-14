@@ -21,8 +21,8 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
 
   const { communityStateValue, onJoinOrCommunity, loading } = useCommunityData()
   const isJoined = !!communityStateValue.mySnippets.find( (item) => item.communityId === communityData.id);
-  // search througth the id and find if the id matches the id of the community data
-  // !! booleaniez it as find return the item or undefined but we expect to receive a boolen
+  // search through the id and find if the id matches the id of the community data
+  // !! booleaniez it as find return the item or undefined but we expect to receive a boolean
 
   return (
     <Flex direction="column" width="100%" height="146px">

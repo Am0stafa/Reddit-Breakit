@@ -38,6 +38,16 @@ const SignUp: React.FC = () => {
       return;
     }
 
+    // check that the password length is more than 8 and contain a number else set the error state
+    if (signUpForm.password.length < 8) {
+      setError('Password must be at least 8 characters long.');
+    } else if (!/\d/.test(signUpForm.password)) {
+      setError('Password must contain at least one number.');
+    } else {
+      setError('');
+    }
+    
+
     createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
   };
 
@@ -49,10 +59,7 @@ const SignUp: React.FC = () => {
   };
 
   const createUserDocument = async (user: User) => {
-    await addDoc(
-      collection(firestore, "users"),
-      JSON.parse(JSON.stringify(user))
-    );
+    await addDoc( collection(firestore, "users"), JSON.parse(JSON.stringify(user)) );
   };
 
 //   useEffect(() => {
