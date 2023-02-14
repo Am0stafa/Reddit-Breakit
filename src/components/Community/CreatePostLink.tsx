@@ -22,6 +22,8 @@ const CreatePostLink: React.FC = () => {
   const searchBorder = useColorModeValue("gray.200", "#4A5568");
 
   const onClick = () => {
+    //this function is being called when you click on the input and all what this function is doing it redirecting the user to the submit page if he is authenticated
+    
     if (!user) {
       setAuthModelState({ open: true, view: "login" });
       return;
@@ -57,6 +59,7 @@ const CreatePostLink: React.FC = () => {
       mb={4}
     >
       <Icon as={FaReddit} fontSize={36} color="gray.300" mr={4} />
+
       <Input
         placeholder="Create Post"
         fontSize="10pt"
@@ -77,8 +80,9 @@ const CreatePostLink: React.FC = () => {
         height="36px"
         borderRadius={4}
         mr={4}
-        onClick={onClick}
+        onClick={onClick} // call the function
       />
+
       <Icon
         as={IoImageOutline}
         fontSize={24}
@@ -86,6 +90,7 @@ const CreatePostLink: React.FC = () => {
         color="gray.400"
         cursor="pointer"
       />
+
       <Icon as={BsLink45Deg} fontSize={24} color="gray.400" cursor="pointer" />
     </Flex>
   );

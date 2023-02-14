@@ -13,19 +13,12 @@ type TextInputProps = {
     title: string;
     body: string;
   };
-  onChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onChange: ( event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => void;
   handleCreatePost: () => void;
   loading: boolean;
 };
 
-const TextInput: React.FC<TextInputProps> = ({
-  textInputs,
-  onChange,
-  handleCreatePost,
-  loading,
-}) => {
+const TextInput: React.FC<TextInputProps> = ({textInputs,onChange,handleCreatePost,loading}) => {
   const searchBg = useColorModeValue("white", "#2D3748");
   const searchBorder = useColorModeValue("black", "#A0AEC0");
 
@@ -46,6 +39,7 @@ const TextInput: React.FC<TextInputProps> = ({
           borderColor: searchBorder,
         }}
       />
+
       <Textarea
         name="body"
         fontSize="10pt"
@@ -62,17 +56,19 @@ const TextInput: React.FC<TextInputProps> = ({
           borderColor: searchBorder,
         }}
       />
+
       <Flex justify="flex-end">
         <Button
           height="34px"
           padding="0px 30px"
-          disabled={!textInputs.title}
+          disabled={!textInputs.title} // you must enter a title
           isLoading={loading}
           onClick={handleCreatePost}
         >
-          Post
+          Post!
         </Button>
       </Flex>
+
     </Stack>
   );
 };

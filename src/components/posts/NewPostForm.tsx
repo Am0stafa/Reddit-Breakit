@@ -27,7 +27,7 @@ import { firestore, storage } from "../../firebase/clientApp";
 import useSelectFile from "../../hooks/useSelectFile";
 import ImageUpload from "./postsForm/ImageUpload";
 import TextInput from "./postsForm/TextInput";
-import TabItem from "./TabItem";
+import TabItems from "./TabItems";
 
 // const secretPass = process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS;
 
@@ -64,12 +64,10 @@ export type TabItem = {
   icon: typeof Icon.arguments;
 };
 
-const NewPostForm: React.FC<NewPostFormProps> = ({
-  user,
-  communityImageURL,
-}) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({ user,communityImageURL }) => {
   const router = useRouter();
-  const [selectedTab, setSelectTab] = useState(formTabs[0].title);
+  
+  const [selectedTab, setSelectTab] = useState(formTabs[0].title); //To track which tab item is currently selected
   const [textInput, setTextInput] = useState({
     title: "",
     body: "",
@@ -78,15 +76,17 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     title: "",
     body: "",
   });
-  //const [selectedFile, setSelectedFile] = useState<string>();
-  const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  //const [selectedFile, setSelectedFile] = useState<string>();
+
+  const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
   const bg = useColorModeValue("white", "#1A202C");
 
+  //creates the post and send it to firebase
   const handleCreatePost = async () => {
     const { communityId } = router.query;
-    // create new post
 
     const splitName = user.email!.split("@")[0];
 
@@ -134,6 +134,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
   };
 
   /*
+  // handles what happen when a user select a particular image and puts it int the form
   const onSelectedImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
 
@@ -148,6 +149,17 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     };
   };
 */
+    // what happens when you enter something into the input field
+    const onTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { target: { name, value }} = event; // destructure what we need from the event
+
+        encryptData(name, value);
+
+        setTextInput((prev) => ({
+            ...prev,
+            [name]: value, //only update the field that updated that event
+        }));
+    };
 
   const encryptData = (name: string, value: string) => {
     try {
@@ -165,31 +177,23 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     }
   };
 
-  const onTextChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const {
-      target: { name, value },
-    } = event;
-    encryptData(name, value);
-    setTextInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+
+
 
   return (
     <Flex direction="column" bg={bg} borderRadius={4} mt={2}>
+
       <Flex width="100%">
         {formTabs.map((item) => (
-          <TabItem
+          <TabItems
             key={item.title}
             item={item}
-            selected={item.title === selectedTab}
+            selected={item.title === selectedTab} // boolean which represent if this particular tab item is selected
             setSelectTab={setSelectTab}
           />
         ))}
       </Flex>
+
       <Flex p={4}>
         {selectedTab === "Post" && (
           <TextInput
@@ -199,6 +203,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
             loading={loading}
           />
         )}
+
         {selectedTab === "Images & Video" && (
           <ImageUpload
             selectedFile={selectedFile}
@@ -208,12 +213,14 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
           />
         )}
       </Flex>
+
       {error && (
         <Alert status="error">
           <AlertIcon />
           <Text mr={2}>Error Creating Post</Text>
         </Alert>
       )}
+
     </Flex>
   );
 };
