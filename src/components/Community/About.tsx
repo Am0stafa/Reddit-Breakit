@@ -38,18 +38,22 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
   const setCommunityStateValue = useSetRecoilState(CommunityState);
   const bg = useColorModeValue("white", "#1A202C");
 
+  //take this file upload it to storage and then update our community document and the recoil state
   const onUploadingImage = async () => {
     if (!selectedFile) return;
+
     setUploadingImage(true);
 
     try {
+      // 1) ref,upload,url
       const imageRef = ref(storage, `communities/${communityData.id}/image`);
       await uploadString(imageRef, selectedFile, "data_url");
       const downLodeUrl = await getDownloadURL(imageRef);
+      // 2) update doc
       await updateDoc(doc(firestore, "communities", communityData.id), {
         imageURL: downLodeUrl,
       });
-
+      // 3) update global state
       setCommunityStateValue((prev) => ({
         ...prev,
         currentCommunity: {
@@ -57,6 +61,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
           imageUrl: downLodeUrl,
         } as Community,
       }));
+      setSelectedFile("")
     } catch (error) {
       console.log("onUploader Image", error);
     }
@@ -116,12 +121,13 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
               </>
             )}
           </Flex>
-          
+
           <Link href={`/r/${communityData.id}/submit`}>
             <Button mt={3} height="30px">
               Create Post
             </Button>
           </Link>
+
           {user?.uid === communityData.creatorId && (
             <>
               <Divider />
@@ -163,7 +169,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
                 <input
                   id="file-upload"
                   type="file"
-                  accept="image/x-png,image/gif,image/jpeg"
+                  accept="image/x-png,image/gif,image/jpeg" //only client side validation
                   hidden
                   ref={selectedFieldRef}
                   onChange={onSelectedFile}
