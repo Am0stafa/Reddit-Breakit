@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Stack } from "@chakra-ui/react";
 import { query, collection, where, orderBy, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
@@ -11,31 +12,27 @@ import PostLoader from "./PostLoader";
 
 type PostsProps = {
   communityData: Community;
-  userId?: string;
+//   userId?: string;
 };
 
 const Posts: React.FC<PostsProps> = ({ communityData }) => {
-  // if user ?
   const [user] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
-  const {
-    postStateValue,
-    setPostStateValue,
-    onVote,
-    onSelectPost,
-    onDeletePost,
-  } = usePosts();
+  const { postStateValue, setPostStateValue, onVote, onSelectPost, onDeletePost } = usePosts();
 
+  // fetch the posts right when the page load
   const getPost = async () => {
     try {
       setLoading(true);
-      // get posts for this community
+      
+      // get posts for the community we are currently in
       const postQuery = query(
         collection(firestore, "posts"),
         where("communityId", "==", communityData.id),
         orderBy("createdAt", "desc")
       );
       const postDocs = await getDocs(postQuery);
+      // extract the data and save in state object
       const posts = postDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
       setPostStateValue((prev) => ({
@@ -43,7 +40,6 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
         posts: posts as Post[],
       }));
 
-      //console.log(posts);
     } catch (error: any) {
       console.log("get post error", error.message);
     }

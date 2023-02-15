@@ -25,6 +25,7 @@ const CommunityPage: React.FC<CommunityProps> = ({ communityData }) => {
     const setCommunityStateValue = useSetRecoilState(CommunityState);
 
     useEffect(() => {
+        // whenever the component render, and save the communityData of this community and save it in the atom to indicate that the user is visiting this community
         setCommunityStateValue((prev) => ({
         ...prev,
         currentCommunity: communityData,

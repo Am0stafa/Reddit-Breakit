@@ -86,20 +86,25 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user,communityImageURL }) => 
 
   //creates the post and send it to firebase
   const handleCreatePost = async () => {
+    /*
+     * 1) construct the post object
+     * 2) store the post in the post collection
+     * 3) check to see if the user included an image and if they do so we store it in firebase storage
+     * 4) update the post doc by adding the image url
+     * 5) redirect the user back to the community page
+     */
+
     const { communityId } = router.query;
 
     const splitName = user.email!.split("@")[0];
 
-    const dataName = CryptoJS.AES.encrypt(
-      JSON.stringify(splitName),
-      process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string
-    ).toString();
+    // we encrypt 3 fields title, body and image url
 
     const newPost: Post = {
       communityId: communityId as string,
       creatorId: user.uid,
       communityImageURL: communityImageURL || "",
-      creatorDisplayName: dataName,
+      creatorDisplayName: splitName,
       title: encryptedData.title,
       body: encryptedData.body,
       numberOfComments: 0,
@@ -109,22 +114,25 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user,communityImageURL }) => 
 
     setLoading(true);
     try {
+      // store the post in db
       const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
 
       if (selectedFile) {
+        // save the image to the db
         const imageRef = ref(storage, `posts/${postDocRef.id}/image`);
         await uploadString(imageRef, selectedFile, "data_url");
         const downloadURL = await getDownloadURL(imageRef);
 
-        const encryptDownloadURL = CryptoJS.AES.encrypt(
-          JSON.stringify(downloadURL),
-          process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string
-        ).toString();
+        const encryptDownloadURL = CryptoJS.AES.encrypt( JSON.stringify(downloadURL), process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string ).toString();
+        
+        console.log("ImageURL encrypted successfully");
 
         await updateDoc(postDocRef, {
           imageURL: encryptDownloadURL,
         });
       }
+      
+      //back to home page
       router.back();
     } catch (error: any) {
       console.log(error.message);
@@ -133,40 +141,25 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user,communityImageURL }) => 
     setLoading(false);
   };
 
-  /*
-  // handles what happen when a user select a particular image and puts it int the form
-  const onSelectedImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
+  // what happens when you enter something into the input field
+  const onTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { target: { name, value }} = event; // destructure what we need from the event
 
-    if (event.target.files?.[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-    }
+    encryptData(name, value);
 
-    reader.onload = (readerEvent) => {
-      if (readerEvent.target?.result) {
-        setSelectedFile(readerEvent.target.result as string);
-      }
-    };
-  };
-*/
-    // what happens when you enter something into the input field
-    const onTextChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { target: { name, value }} = event; // destructure what we need from the event
-
-        encryptData(name, value);
-
-        setTextInput((prev) => ({
-            ...prev,
-            [name]: value, //only update the field that updated that event
-        }));
-    };
+    setTextInput((prev) => ({
+        ...prev,
+        [name]: value, //only update the field that updated that event
+    }));
+ };
 
   const encryptData = (name: string, value: string) => {
+    //encrypt a single key value
+
     try {
-      const data = CryptoJS.AES.encrypt(
-        JSON.stringify(value),
-        process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string
-      ).toString();
+      const data = CryptoJS.AES.encrypt(JSON.stringify(value), "ChristofPaar").toString();
+
+      console.log("data encrypted successfully!");
 
       setEncryptedData((prev) => ({
         ...prev,

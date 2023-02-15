@@ -1,3 +1,4 @@
+import React, { useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -14,13 +15,11 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import moment from "moment";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FaReddit } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiCakeLine } from "react-icons/ri";
 import { useSetRecoilState } from "recoil";
-
 import { Community, CommunityState } from "../../atoms/CommunitiesAtom";
 import { auth, firestore, storage } from "../../firebase/clientApp";
 import useSelectFile from "../../hooks/useSelectFile";
@@ -31,9 +30,11 @@ type AboutProps = {
 
 const About: React.FC<AboutProps> = ({ communityData }) => {
   const [user] = useAuthState(auth);
-  const selectedFieldRef = useRef<HTMLInputElement>(null);
   const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
+
+  const selectedFieldRef = useRef<HTMLInputElement>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
+  
   const setCommunityStateValue = useSetRecoilState(CommunityState);
   const bg = useColorModeValue("white", "#1A202C");
 
@@ -75,8 +76,10 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         <Text fontSize="10pt" fontWeight={700}>
           About Community
         </Text>
+
         <Icon as={HiOutlineDotsHorizontal} cursor="pointer" />
       </Flex>
+
       <Flex direction="column" p={3} bg={bg} borderRadius="0px 0px 4px 4px">
         <Stack>
           <Flex width="100%" p={2} fontSize="10pt" fontWeight={700}>
@@ -84,11 +87,13 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
               <Text>{communityData.numberOfMembers.toLocaleString()}</Text>
               <Text>Members</Text>
             </Flex>
+
             <Flex direction="column" flexGrow={1}>
-              <Text>1</Text>
+              <Text>1</Text> {/* TODO */}
               <Text>Online</Text>
             </Flex>
           </Flex>
+
           <Divider />
 
           <Flex
@@ -99,10 +104,11 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
             fontSize="10pt"
           >
             <Icon as={RiCakeLine} fontSize={18} mr={2} />
+
             {communityData.createdAt && (
               <>
                 <Text>
-                  Created{" "}
+                  Created at{" "}
                   {moment(
                     new Date(communityData.createdAt?.seconds * 1000)
                   ).format("MMM DD, YYYY")}
@@ -110,6 +116,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
               </>
             )}
           </Flex>
+          
           <Link href={`/r/${communityData.id}/submit`}>
             <Button mt={3} height="30px">
               Create Post

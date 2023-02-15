@@ -20,7 +20,7 @@ export interface CommunitySnippet {
 
 interface CommunityState {
   mySnippets: CommunitySnippet[]; // array of CommunitySnippet
-  currentCommunity?: Community;
+  currentCommunity?: Community; // when you are on a community page this community will be stored here
   snippetsFetched: boolean;
 }
 

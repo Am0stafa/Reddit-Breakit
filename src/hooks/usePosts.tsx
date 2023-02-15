@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import {
   collection,
   deleteDoc,
@@ -9,7 +11,6 @@ import {
 } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { authModelState } from "../atoms/authModalAtom";
@@ -23,12 +24,8 @@ const usePosts = () => {
   const router = useRouter();
   const setAuthModalState = useSetRecoilState(authModelState);
   const currentCommunity = useRecoilValue(CommunityState).currentCommunity;
-  const onVote = async (
-    event: React.MouseEvent<Element, MouseEvent>,
-    post: Post,
-    vote: number,
-    communityId: string
-  ) => {
+
+  const onVote = async (event:React.MouseEvent<Element, MouseEvent>,post: Post,vote: number,communityId: string)=> {
     event.stopPropagation();
     // check user ?
 
@@ -140,11 +137,18 @@ const usePosts = () => {
 
   const onDeletePost = async (post: Post): Promise<boolean> => {
     try {
+      /*
+       * 1) check if this post has an image and if so delete from the bucket
+       * 2) then delete the post document and update the atom to reflect on the ui
+       */
+
       // check if image delete if exists
       if (post.imageURL) {
         const imageRef = ref(storage, `posts/${post.id}/image`);
         await deleteObject(imageRef);
       }
+      //! after a value tells typescript that its safe to proceed
+
       // delete post document from firestore
       const postDocRef = doc(firestore, "posts", post.id!);
       await deleteDoc(postDocRef);

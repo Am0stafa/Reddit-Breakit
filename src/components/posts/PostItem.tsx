@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Alert,
   AlertIcon,
@@ -11,7 +12,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import CryptoJS from "crypto-js";
-import moment from "moment";
+import moment from "moment"; //formate the time
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -26,7 +27,6 @@ import {
   IoArrowUpCircleSharp,
   IoBookmarkOutline,
 } from "react-icons/io5";
-
 import { Post } from "../../atoms/PostAtom";
 
 // const secretPass = process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS;
@@ -35,26 +35,13 @@ type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
   userVoteValue?: number;
-  onVote: (
-    event: React.MouseEvent<Element, MouseEvent>,
-    post: Post,
-    vote: number,
-    communityId: string
-  ) => void;
+  onVote: (event: React.MouseEvent<Element, MouseEvent>,post: Post,vote: number,communityId: string) => void;
   onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost?: (post: Post) => void;
   homePage?: boolean;
 };
 
-const PostItem: React.FC<PostItemProps> = ({
-  post,
-  userIsCreator,
-  userVoteValue,
-  onVote,
-  onDeletePost,
-  onSelectPost,
-  homePage,
-}) => {
+const PostItem: React.FC<PostItemProps> = ({post,userIsCreator,userVoteValue,onVote,onDeletePost,onSelectPost,homePage}) => {
   const [loadingImage, setLoadingImage] = useState(true);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [error, setError] = useState(false);
@@ -64,10 +51,10 @@ const PostItem: React.FC<PostItemProps> = ({
     creatorDisplayName: "",
     imageURL: "",
   });
+
   const singlePostPage = !onSelectPost;
   const router = useRouter();
 
-  // Thames
   const bg = useColorModeValue("white", "#1A202C");
   const borderColor = useColorModeValue("gray.300", "#2D3748");
   const singlePageBorderColor = useColorModeValue("white", "#2D3748");
@@ -76,11 +63,13 @@ const PostItem: React.FC<PostItemProps> = ({
   const IconBg = useColorModeValue("none", "#A0AEC0");
   const voteIconBg = useColorModeValue("gray.400", "#CBD5E0");
 
-  const handleDelete = async (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  // why do we have two delete functions ?
+  // onDeletePost is responsible for updating our database and state
+  // will this function does error handling and few other things like event propagation.
+  const handleDelete = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     setLoadingDelete(true);
+
     try {
       const success = await onDeletePost(post);
 
@@ -94,22 +83,20 @@ const PostItem: React.FC<PostItemProps> = ({
         router.push(`/r/${post.communityId}`);
       }
     } catch (error: any) {
+      console.log("handelDelete/onDelete: ", error.message);
       setError(error.message);
     }
     setLoadingDelete(false);
   };
 
   useEffect(() => {
-    const arr = [post.title, post.body, post.creatorDisplayName, post.imageURL];
-    const arrName = ["title", "body", "creatorDisplayName", "imageURL"];
+    const arr = [post.title, post.body, post.imageURL];
+    const arrName = ["title", "body", "imageURL"];
 
     try {
       for (let index = 0; index < arr.length; index++) {
         if (arr[index]) {
-          const bytes = CryptoJS.AES.decrypt(
-            arr[index]!,
-            process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string
-          );
+          const bytes = CryptoJS.AES.decrypt(arr[index]!,process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string);
           const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
           setDecryptedData((prev) => ({
@@ -121,6 +108,7 @@ const PostItem: React.FC<PostItemProps> = ({
     } catch (error) {
       console.log(error);
     }
+    
   }, [post]);
 
   return (
@@ -150,9 +138,11 @@ const PostItem: React.FC<PostItemProps> = ({
           onClick={(event) => onVote(event, post, 1, post.communityId)}
           cursor="pointer"
         />
+
         <Text fontSize="9pt" color={voteIconBg}>
           {post.voteStatus}
         </Text>
+
         <Icon
           as={
             userVoteValue === -1
@@ -165,6 +155,7 @@ const PostItem: React.FC<PostItemProps> = ({
           cursor="pointer"
         />
       </Flex>
+
       <Flex direction="column" width="100%">
         {error && (
           <Alert status="error">
@@ -174,11 +165,12 @@ const PostItem: React.FC<PostItemProps> = ({
         )}
         <Stack spacing={1} p="10px">
           <Stack direction="row" spacing={0.5} align="center" fontSize="9pt">
-            {/* check */}
+            {/* if we are on home page display the icon of the community */}
             {homePage && (
               <>
                 {post.communityImageURL ? (
                   <Image
+                    alt='post image'
                     src={post.communityImageURL}
                     borderRadius="full"
                     boxSize="18px"
@@ -197,15 +189,19 @@ const PostItem: React.FC<PostItemProps> = ({
                 <Icon as={BsDot} color="gray.500" fontSize={8} />
               </>
             )}
+
             <Text>
-              Posted by u/{decryptedData.creatorDisplayName}{" "}
+              Posted by u/{post.creatorDisplayName}{" "}
               {moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}
             </Text>
           </Stack>
+
           <Text fontSize="12pt" fontWeight={600}>
             {decryptedData.title}
           </Text>
+
           <Text fontSize="10pt">{decryptedData.body}</Text>
+
           {post.imageURL && (
             <Flex justify="center" align="center" p={2}>
               {loadingImage && (
@@ -213,7 +209,7 @@ const PostItem: React.FC<PostItemProps> = ({
               )}
               <Image
                 src={decryptedData.imageURL}
-                maxHeight="460px"
+                maxHeight="463px"
                 alt="Post Image"
                 display={loadingImage ? "none" : "unset"}
                 onLoad={() => setLoadingImage(false)}
@@ -221,6 +217,7 @@ const PostItem: React.FC<PostItemProps> = ({
             </Flex>
           )}
         </Stack>
+
         <Flex ml={1} mb={0.5} color="gray.500" fontWeight={600}>
           <Flex
             align="center"
@@ -234,6 +231,7 @@ const PostItem: React.FC<PostItemProps> = ({
               {post.numberOfComments}
             </Text>
           </Flex>
+
           <Flex
             align="center"
             p="8px 10px"
@@ -246,6 +244,7 @@ const PostItem: React.FC<PostItemProps> = ({
               Share
             </Text>
           </Flex>
+
           <Flex
             align="center"
             p="8px 10px"
@@ -258,6 +257,7 @@ const PostItem: React.FC<PostItemProps> = ({
               Save
             </Text>
           </Flex>
+
           {userIsCreator && (
             <Flex
               align="center"

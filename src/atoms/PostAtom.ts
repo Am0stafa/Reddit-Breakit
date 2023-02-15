@@ -1,3 +1,4 @@
+//! to save posts locally
 import { Timestamp } from "firebase/firestore";
 import { atom } from "recoil";
 
@@ -23,7 +24,7 @@ export type PostVote = {
 };
 
 interface PostState {
-  selectedPost: Post | null;
+  selectedPost: Post | null; // when we do a single view of posts
   posts: Post[];
   postVotes: PostVote[];
 }
