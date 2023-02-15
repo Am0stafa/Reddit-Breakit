@@ -48,7 +48,6 @@ const PostItem: React.FC<PostItemProps> = ({post,userIsCreator,userVoteValue,onV
   const [decryptedData, setDecryptedData] = useState({
     title: "",
     body: "",
-    creatorDisplayName: "",
     imageURL: "",
   });
 
@@ -92,13 +91,16 @@ const PostItem: React.FC<PostItemProps> = ({post,userIsCreator,userVoteValue,onV
   useEffect(() => {
     const arr = [post.title, post.body, post.imageURL];
     const arrName = ["title", "body", "imageURL"];
-
     try {
       for (let index = 0; index < arr.length; index++) {
         if (arr[index]) {
-          const bytes = CryptoJS.AES.decrypt(arr[index]!,process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string);
+        
+          const bytes = CryptoJS.AES.decrypt(
+            arr[index]!,
+            process.env.NEXT_PUBLIC_CRYPTO_SECRET_PASS as string
+          );
+        console.log(bytes.toString(CryptoJS.enc.Utf8));
           const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
           setDecryptedData((prev) => ({
             ...prev,
             [arrName[index]]: data,
@@ -106,10 +108,8 @@ const PostItem: React.FC<PostItemProps> = ({post,userIsCreator,userVoteValue,onV
         } else return;
       }
     } catch (error) {
-      console.log(decryptedData);
       console.log(error);
     }
-    
   }, [post]);
 
   return (
