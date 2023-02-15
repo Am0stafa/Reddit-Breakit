@@ -106,6 +106,7 @@ const PostItem: React.FC<PostItemProps> = ({post,userIsCreator,userVoteValue,onV
         } else return;
       }
     } catch (error) {
+      console.log(decryptedData);
       console.log(error);
     }
     

@@ -25,6 +25,7 @@ const usePosts = () => {
   const setAuthModalState = useSetRecoilState(authModelState);
   const currentCommunity = useRecoilValue(CommunityState).currentCommunity;
 
+  //
   const onVote = async (event:React.MouseEvent<Element, MouseEvent>,post: Post,vote: number,communityId: string)=> {
     event.stopPropagation();
     // check user ?
