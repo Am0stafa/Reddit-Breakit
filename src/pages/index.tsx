@@ -39,7 +39,6 @@ const Home: NextPage = () => {
   const { communityStateValue } = useCommunityData();
 
   
-
   const buildUserHomeFeed = async () => {
     try {
       if (communityStateValue.mySnippets.length) {

@@ -26,7 +26,7 @@ export type PostVote = {
 interface PostState {
   selectedPost: Post | null; // when we do a single view of posts
   posts: Post[];
-  postVotes: PostVote[];
+  postVotes: PostVote[]; //vote status
 }
 
 const defaultPostState: PostState = {

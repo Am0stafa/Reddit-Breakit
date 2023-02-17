@@ -46,6 +46,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 
   const logout = async () => {
     await signOut(auth);
+    // there is a useEffect on the useCommunityData hook that will clear the user snippet only. clear user specific data
   };
 
   return (
