@@ -84,20 +84,22 @@ const useCommunityData = () => {
         getMySnippets();
     }, [user]);
 
+    //! we need to call this function so that if we do not come from our home page and we go directly to the single post page or directly to the submit page but we wont need to call this function if we come from the community page because the community data will already be in state
     const getCommunityData = async (communityId: string) => {
     try {
         const communityDocRef = doc(firestore, "communities", communityId);
         const communityDoc = await getDoc(communityDocRef);
 
         setCommunityStateValue((prev) => ({
-        ...prev,
-        currentCommunity: {
-            id: communityDoc.id,
-            ...communityDoc.data(),
-        } as Community,
+            ...prev,
+            currentCommunity: {
+                id: communityDoc.id,
+                ...communityDoc.data(),
+            } as Community // of type community
         }));
+        
     } catch (error) {
-        console.log(error);
+        console.log("fetching community error: "+error);
     }
     };
 

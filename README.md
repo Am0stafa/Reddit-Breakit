@@ -1,8 +1,8 @@
 <div align="center">
 
-  <img src="https://media.wired.com/photos/5b620d11dcaf530b8e3ace67/master/w_240,c_limit/Reddit%20User%20Data%20Breached%20Because%20of%20Woefully%20Insecure%20Two-Factor%20Setup.jpg" alt="logo" width="200" height="auto" />
+  <img src="public/images/reddit_logo_pre2.png" alt="logo" width="250" height="auto" />
   
-  <h1>Reddit Clone with REACT.JS</h1>
+  <h1>Vulnerable Reddit can you pwd?</h1>
   
   <p>
  Reddit Clone with REACTJS (Next.js, Firebase v9, Chakra UI, TypeScript, Recoil, (Image Uploading, Google Authentication, Create Community, Join Community, Leave Community, Upvote and Downvote Posts), Dark Mode & Light Mode)
@@ -10,23 +10,14 @@
   
   
 <!-- Badges -->
-
+<!-- 
 <a href="https://reddit-sclone.vercel.app" target="_blank">![](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)</a>
 ![](https://img.shields.io/badge/Maintained-Yes-indigo)
 ![](https://img.shields.io/github/forks/SashenJayathilaka/Reddit-Clone.svg)
 ![](https://img.shields.io/github/stars/SashenJayathilaka/Reddit-Clone.svg)
 ![](https://img.shields.io/github/issues/SashenJayathilaka/Reddit-Clone)
-![](https://img.shields.io/github/last-commit/SashenJayathilaka/Reddit-Clone)
+![](https://img.shields.io/github/last-commit/SashenJayathilaka/Reddit-Clone) -->
 
-<h4>
-    <a href="https://reddit-sclone.vercel.app">View Demo</a>
-  <span> · </span>
-    <a href="https://github.com/SashenJayathilaka/Reddit-Clone/blob/master/README.md">Documentation</a>
-  <span> · </span>
-    <a href="https://github.com/SashenJayathilaka/Reddit-Clone/issues">Report Bug</a>
-  <span> · </span>
-    <a href="https://github.com/SashenJayathilaka/Reddit-Clone/issues">Request Feature</a>
-  </h4>
 </div>
 
 <br />
@@ -43,8 +34,8 @@
   - [Prerequisites](#bangbang-prerequisites)
   - [Installation](#gear-installation)
   - [Run Locally](#running-run-locally)
-  - [Deployment](#triangular_flag_on_post-deployment)
-- [Contact](#handshake-contact)
+  - [Deployment](#deployment)
+- [Vulnerabilities](#Vulnerabilities)
 
 <!-- About the Project -->
 
@@ -62,14 +53,6 @@
 
 <br />
 
-- Dark Mode & Light Mode
-
-<div align="center">
-<a href="https://reddit-sclone.vercel.app"><img width='800rem' src='./demo/ezgif-5-d29f199523.gif' alt='image'/></a>
-</div>
-
-<br />
-  
 - User Profile Section
   
 <div align="center">
@@ -85,15 +68,6 @@
 </div>
 
 ## <a href="https://reddit-sclone.vercel.app" target="_blank">LIVE DEMO 💥</a>
-
-#### 🔴 Open the camera app on your device and scan the code below (live demo)
-
-<a href="https://reddit-sclone.vercel.app"><img src="./demo/qr/qr-code.png" alt="qr" width="150" height="150" /></a>
-<a href="#instagram"><img src="https://user-images.githubusercontent.com/99184393/182557606-b36f2540-1260-42bf-b547-ed5832e3615e.png" alt="qr" width="150" height="150" /></a>
-
-![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)
-![forthebadge](https://forthebadge.com/images/badges/for-you.svg)
-![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)
 
 ### :space_invader: Tech Stack
 
@@ -198,45 +172,14 @@ Install dependencies
 
 #### Installation
 
-In your Next.js project, install Chakra UI by running either of the following:
-
-```
-npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^6
-or
-yarn add @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^6
-```
-
-Provider Setup
-After installing Chakra UI, you need to set up the `ChakraProvider` at the root of your application.
-
-Go to `pages/_app.js` or `pages/_app.tsx` (create it if it doesn't exist) and wrap the `Component` with the `ChakraProvider`:
-
-```tsx
-// pages/_app.js
-import { ChakraProvider } from "@chakra-ui/react";
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  );
-}
-
-export default MyApp;
-```
-
-<a href="https://chakra-ui.com/getting-started/nextjs-guide" target="_blank">🔷 Customizing theme & More</a>
-
 Install dependencies
 
-<a href="https://github.com/SashenJayathilaka/Reddit-Clone/blob/master/package.json" target="_blank">🔶 Dependency Info</a>
+<a href="https://github.com/Am0stafa/Reddit-Clone/blob/main/package.json" target="_blank">🔶 Dependency Info</a>
 
 <!-- Run Locally -->
 
 ### :running: Run Locally
 
-![](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
 
 Clone the project
 
@@ -266,37 +209,20 @@ Start the server
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-<hr />
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<hr />
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<br>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-### Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-<!-- Deployment -->
-
-### :triangular_flag_on_post: Deployment
-
-To deploy this project run
-
-##### Deploy on Vercel
+#### Deployment
 
 ![](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+#### Vulnerabilities
 
 

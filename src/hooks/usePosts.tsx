@@ -31,6 +31,7 @@ const usePosts = () => {
    * communityId: in which this post is in
    */
   const onVote = async (event:React.MouseEvent<Element, MouseEvent>,post: Post,vote: number,communityId: string)=> {
+    //! this prevent the event from traveling upward to the parent which also has onClick function
     event.stopPropagation();
 
     // protect against unauthenticated user
@@ -57,7 +58,7 @@ const usePosts = () => {
       if (!exitingVote) {
         // create a new postVote Document
 
-        // document refrence on what we are creating on the database
+        // document reference on what we are creating on the database
         const postVoteRef = doc(collection(firestore, "users", `${user?.uid}/postVotes`));
 
         const newVote: PostVote = {
@@ -138,6 +139,7 @@ const usePosts = () => {
     }
   };
 
+  //! when we select a post save it in our state and then take this post and put it on the post state value
   const onSelectPost = (post: Post) => {
     setPostStateValue((prev) => ({
       ...prev,
@@ -205,7 +207,6 @@ const usePosts = () => {
   //! clear the state when the user logout
   useEffect(() => {
     if (!user) {
-      // if check user ?
       setPostStateValue((prev) => ({
         ...prev,
         postVotes: [],
