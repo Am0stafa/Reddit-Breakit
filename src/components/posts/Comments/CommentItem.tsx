@@ -46,6 +46,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
     creatorDisplayText: "",
   });
 
+  //! Decrypt the comments
   useEffect(() => {
     const arr = [comment.text, comment.creatorDisplayText];
     const arrName = ["text", "creatorDisplayText"];

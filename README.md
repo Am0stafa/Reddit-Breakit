@@ -8,7 +8,6 @@
  Reddit Clone with REACTJS (Next.js, Firebase v9, Chakra UI, TypeScript, Recoil, (Image Uploading, Google Authentication, Create Community, Join Community, Leave Community, Upvote and Downvote Posts), Dark Mode & Light Mode)
   </p>
   
-  
 <!-- Badges -->
 <!-- 
 <a href="https://reddit-sclone.vercel.app" target="_blank">![](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)</a>

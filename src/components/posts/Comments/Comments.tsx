@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Flex,
@@ -57,11 +58,10 @@ const Comments: React.FC<CommentsProps> = ({
   const [fetchLoading, setFetchLoading] = useState(true);
   const [createLoading, setCreateLoading] = useState(false);
   const [redditUser, setRedditUser] = useState<RedditUserDocument>();
+
   const setPostState = useSetRecoilState(postState);
   const bg = useColorModeValue("white", "#1A202C");
   const lineBorderColor = useColorModeValue("gray.100", "#171923");
-
-  //console.log(comments);
 
   const fetchRedditUser = async (userId: any) => {
     if (!userId) return;
@@ -78,7 +78,13 @@ const Comments: React.FC<CommentsProps> = ({
     }
   };
 
+  //! create our comment
   const onCreateComments = async () => {
+    /* we want to do 3 things
+     * create a comment document
+     * update post numberOfComments
+     * update client recoil state
+     */
     try {
       setCreateLoading(true);
 
@@ -107,9 +113,11 @@ const Comments: React.FC<CommentsProps> = ({
 
       batch.set(commentDocRef, newComment);
 
+      //? to be able to save it on state as its saved up for for firebase
       newComment.createdAt = { seconds: Date.now() / 1000 } as Timestamp;
 
       const postDocRef = doc(firestore, "posts", selectedPost?.id!);
+
       batch.update(postDocRef, {
         numberOfComments: increment(1),
       });
@@ -117,7 +125,10 @@ const Comments: React.FC<CommentsProps> = ({
       await batch.commit();
 
       setCommentText("");
+
       setComments((prev) => [newComment, ...prev]);
+      
+      //?
       setPostState((prev) => ({
         ...prev,
         selectedPost: {
@@ -125,12 +136,14 @@ const Comments: React.FC<CommentsProps> = ({
           numberOfComments: prev.selectedPost?.numberOfComments! + 1,
         } as Post,
       }));
+
     } catch (error) {
-      console.log("📝", error);
+      console.log("comment creation error", error);
     }
     setCreateLoading(false);
   };
 
+  //! delete our comment
   const onDeleteComment = async (comment: Comment) => {
     setLoadingDeleteId(comment.id!);
     try {
@@ -139,7 +152,8 @@ const Comments: React.FC<CommentsProps> = ({
       // delete comment document
       const commentDocRef = doc(firestore, "comments", comment.id!);
       batch.delete(commentDocRef);
-
+    
+      // decrease the number of commments
       const postDocRef = doc(firestore, "posts", selectedPost?.id!);
       batch.update(postDocRef, {
         numberOfComments: increment(-1),
@@ -155,6 +169,7 @@ const Comments: React.FC<CommentsProps> = ({
         } as Post,
       }));
 
+      //?
       setComments((prev) => prev.filter((item) => item.id !== comment.id));
     } catch (error) {
       console.log("CommentDelete Error", error);
@@ -162,6 +177,7 @@ const Comments: React.FC<CommentsProps> = ({
     setLoadingDeleteId("");
   };
 
+  //! fetch all the comments
   const getPostComments = async () => {
     try {
       const commentsQuery = query(
@@ -183,6 +199,7 @@ const Comments: React.FC<CommentsProps> = ({
     setFetchLoading(false);
   };
 
+  //! fetch the comments on load
   useEffect(() => {
     if (!selectedPost) return;
     getPostComments();
