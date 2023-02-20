@@ -73,6 +73,7 @@ const Comments: React.FC<CommentsProps> = ({
       if (docSnap.exists()) {
         setRedditUser(docSnap.data() as RedditUserDocument);
       } else return;
+      
     } catch (error: any) {
       console.log(error.message);
     }

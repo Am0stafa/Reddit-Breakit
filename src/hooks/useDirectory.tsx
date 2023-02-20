@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+//! hook to manage global community state
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";

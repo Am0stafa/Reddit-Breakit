@@ -17,13 +17,7 @@ type MenuListItemProps = {
   imageURL?: string;
 };
 
-const MenuListItem: React.FC<MenuListItemProps> = ({
-  displayText,
-  link,
-  icon,
-  iconColor,
-  imageURL,
-}) => {
+const MenuListItem: React.FC<MenuListItemProps> = ({ displayText,link,icon,iconColor,imageURL }) => {
   const { onSelectMenuItem } = useDirectory();
   const hoverBg = useColorModeValue("gray.100", "#2A4365");
 
@@ -38,7 +32,7 @@ const MenuListItem: React.FC<MenuListItemProps> = ({
     >
       <Flex alignItems="center">
         {imageURL ? (
-          <Image borderRadius="full" boxSize="18px" src={imageURL} mr={2} />
+          <Image borderRadius="full" boxSize="18px" src={imageURL} mr={2} alt='community icon' />
         ) : (
           <Icon fontSize={20} mr={2} as={icon} color={iconColor} />
         )}

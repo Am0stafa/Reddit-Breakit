@@ -21,7 +21,9 @@ type CommunitiesProps = {
 
 const Communities: React.FC<CommunitiesProps> = () => {
   const [open, setOpen] = useState(false);
+
   const mySnippets = useRecoilValue(CommunityState).mySnippets;
+  
   const hoverBg = useColorModeValue("gray.200", "#2A4365");
   const textColor = useColorModeValue("gray.500", "gray.400");
 
@@ -29,6 +31,7 @@ const Communities: React.FC<CommunitiesProps> = () => {
     <>
       <CreateCommunityModel open={open} handleClose={() => setOpen(false)} />
 
+        {/* list of communities i moderate */}
       <Box mt={3} mb={4}>
         <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color={textColor}>
           MODERATING
@@ -47,6 +50,7 @@ const Communities: React.FC<CommunitiesProps> = () => {
           ))}
       </Box>
 
+        {/* list of our community snippets and create a menu item from each one */}
       <Box mt={3} mb={4}>
         <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color={textColor}>
           MY COMMUNITIES

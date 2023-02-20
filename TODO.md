@@ -1,0 +1,1 @@
+onclick on post bar in home popup to choose a community
