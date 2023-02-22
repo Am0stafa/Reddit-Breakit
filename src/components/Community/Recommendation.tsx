@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Button,
@@ -10,30 +11,35 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaReddit } from "react-icons/fa";
-
 import { Community } from "../../atoms/CommunitiesAtom";
 import { firestore } from "../../firebase/clientApp";
 import useCommunityData from "../../hooks/useCommunityData";
 
+// top five communities rated by the number of members
 const Recommendation: React.FC = () => {
   const [communities, setCommunities] = useState<Community[]>([]);
   const [isViewAll, setIsViewAll] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+
   const { communityStateValue, onJoinOrCommunity } = useCommunityData();
+
   const bg = useColorModeValue("white", "#1A202C");
   const borderColor = useColorModeValue("gray.300", "#2D3748");
 
+  // A single function to fetch those top five communities
   const getCommunityRecommendation = async () => {
     setLoading(true);
+
     try {
+      //! defending so that the most populate in top
       const communityQuery = query(
         collection(firestore, "communities"),
-        orderBy("numberOfMembers", "desc")
-        //limit(5)
+        orderBy("numberOfMembers", "desc"),
+        limit(50)
       );
       const communityDocs = await getDocs(communityQuery);
 
@@ -44,6 +50,7 @@ const Recommendation: React.FC = () => {
             id: doc.id,
             ...doc.data(),
           })) as Community[];
+
         setCommunities(communities);
       } else {
         const communities = communityDocs.docs.slice(0, 5).map((doc) => ({
@@ -84,7 +91,7 @@ const Recommendation: React.FC = () => {
         bgGradient="linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
         url('images/xw6wqhhjubh31.webp')"
       >
-        Top Communities
+        Top Communities by number of users
       </Flex>
       <Flex direction="column">
         {loading ? (
@@ -130,6 +137,7 @@ const Recommendation: React.FC = () => {
                             boxSize="28px"
                             src={item.imageURL}
                             mr={2}
+                            alt='community image'
                           />
                         ) : (
                           <Icon
@@ -169,7 +177,7 @@ const Recommendation: React.FC = () => {
                   isViewAll ? setIsViewAll(false) : setIsViewAll(true)
                 }
               >
-                {isViewAll ? "Collapse Items" : "View All"}
+                {isViewAll ? "Collapse Items" : "View top 50"}
               </Button>
             </Box>
           </>

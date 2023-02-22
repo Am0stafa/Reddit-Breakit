@@ -3,6 +3,7 @@ import { Flex, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import Head from "next/head";
 
+// go home
 const NotFound: React.FC = () => {
     return (
     <div>

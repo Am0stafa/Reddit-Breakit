@@ -13,6 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
 import CreateCommunityModel from "../Modal/CreateCommunity/CreateCommunityModel";
 
+//dummy component below the top community
 const PersonalHome: React.FC = () => {
   const [user] = useAuthState(auth);
   const [open, setOpen] = useState(false);

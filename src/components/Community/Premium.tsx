@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { GiCheckedShield } from "react-icons/gi";
 
+//dummy component below the top community
 const Premium: React.FC = () => {
   const bg = useColorModeValue("white", "#1A202C");
   const borderColor = useColorModeValue("gray.300", "#2D3748");
