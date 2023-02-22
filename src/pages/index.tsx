@@ -29,19 +29,15 @@ import usePosts from "../hooks/usePosts";
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
-  const {
-    postStateValue,
-    setPostStateValue,
-    onDeletePost,
-    onSelectPost,
-    onVote,
-  } = usePosts();
+  const { postStateValue, setPostStateValue, onDeletePost, onSelectPost,onVote } = usePosts();
   const { communityStateValue } = useCommunityData();
 
-  
+  //! fetching the post for a user how is authenticated
   const buildUserHomeFeed = async () => {
+    //? we know the communities the user is in so we can build a query to grab a set of posts from the various communities the user is in
     try {
-      if (communityStateValue.mySnippets.length) {
+      if (communityStateValue.mySnippets.length) { // check if the user joined any communities
+        //? create an array of all of the communityId and query all the posts where the post document has the same communityId
         const myCommunityIds = communityStateValue.mySnippets.map(
           (snippet) => snippet.communityId
         );
@@ -63,19 +59,23 @@ const Home: NextPage = () => {
           posts: posts as Post[],
         }));
       } else {
-        buildUserHomeFeed();
+        buildUserHomeFeed(); //! recursive to keep on checking if the user joined any communities
+        // if (communityStateValue.mySnippets.length) buildUserHomeFeed(); IN a useEffect
+        // this wont work because what if the user didnt join any communities and the mySnippets wont exists so it will return false and the user will never be able to see this page
+        //another solution is to make a parameter to the community state that is going to change once our application has tried to fetch the snippets from the database 
       }
     } catch (error) {
-      console.log("Building HHome Error", error);
+      console.log("Building HHome Error: ", error);
     }
   };
   
+  //! fetching the post for a user how is NOT authenticated
   const buildNoUserHomeFeed = async () => {
     setLoading(true);
     try {
-      const postQuery = query(
-        collection(firestore, "posts"),
-        orderBy("voteStatus", "desc")
+      //? get the most populate posts in the database
+      //! query the post collection
+      const postQuery = query(collection(firestore, "posts"), orderBy("voteStatus", "desc"),
         //limit(10)
       );
 
@@ -86,12 +86,14 @@ const Home: NextPage = () => {
         ...prev,
         posts: posts as Post[],
       }));
+
     } catch (error) {
-      console.log("BuildNoUserHome", error);
+      console.log("BuildNoUserHome: ", error);
     }
     setLoading(false);
   };
 
+  //! this is only going to get called for authenticated users to populate the postVotes in post atom
   const getUserPostVotes = async () => {
     try {
       const postIds = postStateValue.posts.map((post) => post.id);
@@ -128,13 +130,19 @@ const Home: NextPage = () => {
     if (communityStateValue.snippetsFetched) buildNoUserHomeFeed();
   }, [communityStateValue.snippetsFetched]);
 
+
   useEffect(() => {
+    //! if the user logged in or not and if the auth service has attempted to try to get the authenticated user
     if (!user && !loadingUser) buildNoUserHomeFeed();
   }, [user, loadingUser]);
 
+
   useEffect(() => {
+    //! explained in the end of this function
     if (user && postStateValue.posts.length) getUserPostVotes();
 
+    //? clean up function that will be called when this component unmount to clean up so that we dont get an over lap
+    // run when we move away from this component
     return () => {
       setPostStateValue((prev) => ({
         ...prev,

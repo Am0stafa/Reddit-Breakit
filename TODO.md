@@ -1,3 +1,5 @@
 - onclick on post bar in home popup to choose a community
 - make the submit page protected
 - add in the documentation the firebase setting
+- make the private communities private and send request to the admin
+- algolia to search for the post communities and people
