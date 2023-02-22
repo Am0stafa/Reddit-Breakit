@@ -1,1 +1,3 @@
-onclick on post bar in home popup to choose a community
+- onclick on post bar in home popup to choose a community
+- make the submit page protected
+- add in the documentation the firebase setting

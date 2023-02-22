@@ -10,13 +10,17 @@ import {
 } from "../atoms/directoryMenuAtom";
 import { FaReddit } from "react-icons/fa";
 
+//! this hook is going to manage the recoil state of the directory menu 
 const useDirectory = () => {
-  const [directoryState, setDirectoryState] =
-    useRecoilState(directoryMenuState);
-  const router = useRouter();
+  const [directoryState, setDirectoryState] = useRecoilState(directoryMenuState);
   const communityStateValue = useRecoilValue(CommunityState);
 
+  const router = useRouter();
+
+  //! the function that is going to get triggered when the user actually clicks on a menu item in the directory
   const onSelectMenuItem = (menuItem: DirectoryMenuItem) => {
+    //? update the directory state to have this menu item and navigate to this page
+
     setDirectoryState((prev) => ({
       ...prev,
       selectedMenuItem: menuItem,
@@ -28,6 +32,7 @@ const useDirectory = () => {
     }
   };
 
+  //! open and close the menu item of the communities
   const toggleMenuOpen = () => {
     setDirectoryState((prev) => ({
       ...prev,
