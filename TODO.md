@@ -6,6 +6,7 @@
 - add the link functionality with the scraper function
 <br>
 ### vulnerabilities
+<br>
 - reflected xss in search
 - stored xss in message by sending a broken image with a script
 - SSRF in the scraper leading to a DOS
