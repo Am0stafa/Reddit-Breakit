@@ -1,6 +1,6 @@
 import type { ComponentStyleConfig } from "@chakra-ui/theme";
 
-//! this is how you can style your component globaly and anythis specific add it there like the hight wont be added here
+//! this is how you can style your component globally and anything specific add it there like the hight wont be added here
 
 //& Control space bar with typescript gives you a list of all of the properties that this interface is expecting
 export const Button: ComponentStyleConfig = {
