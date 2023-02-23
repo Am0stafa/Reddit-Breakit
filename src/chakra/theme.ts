@@ -24,6 +24,6 @@ export const theme = extendTheme({
     }),
   },
   components: {
-    Button
+    Button 
   },
 });
