@@ -5,7 +5,7 @@
 - algolia to search for the post communities and people
 - add the link functionality with the scraper function
 <br>
-**vulnerabilities
+### vulnerabilities
 - reflected xss in search
 - stored xss in message by sending a broken image with a script
 - SSRF in the scraper leading to a DOS
