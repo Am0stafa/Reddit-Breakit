@@ -5,7 +5,8 @@
   <h1>Vulnerable Reddit can you pwd?</h1>
   
   <p>
- Reddit Clone with REACTJS (Next.js, Firebase v9, Chakra UI, TypeScript, Recoil, (Image Uploading, Google Authentication, Create Community, Join Community, Leave Community, Upvote and Downvote Posts), Dark Mode & Light Mode)
+  Reddit Clone is designed as a CTF challenge to help developers practice identifying, exploiting and mitigate common vulnerabilities in modern web applications. I intentionally included vulnerabilities such as XSS's, SSRF, SQL injection ,multiple IDORs, and file upload vulnerabilities. The goal is to offer a safe and controlled environment where security enthusiasts can hone their skills in a fun and challenging way. Despite these vulnerabilities, I utilize secure technologies such as Google Cloud, Next.js, Chakra UI, TypeScript, and Recoil. The platform allows users to create and join communities, upvote and downvote posts, and engage in real-time community chat and Dark Mode & Light Mode.
+ 
   </p>
   
 <!-- Badges -->
