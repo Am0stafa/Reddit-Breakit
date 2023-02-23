@@ -4,20 +4,10 @@
   
   <h1>Vulnerable Reddit can you pwd?</h1>
   
-  <p>
+  <p align="center" style="font-size: 1.2rem;">
   Reddit Clone is designed as a CTF challenge to help developers practice identifying, exploiting and mitigate common vulnerabilities in modern web applications. I intentionally included vulnerabilities such as XSS's, SSRF, SQL injection ,multiple IDORs, and file upload vulnerabilities. The goal is to offer a safe and controlled environment where security enthusiasts can hone their skills in a fun and challenging way. Despite these vulnerabilities, I utilize secure technologies such as Google Cloud, Next.js, Chakra UI, TypeScript, and Recoil. The platform allows users to create and join communities, upvote and downvote posts, and engage in real-time community chat and Dark Mode & Light Mode.
- 
   </p>
   
-<!-- Badges -->
-<!-- 
-<a href="https://reddit-sclone.vercel.app" target="_blank">![](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)</a>
-![](https://img.shields.io/badge/Maintained-Yes-indigo)
-![](https://img.shields.io/github/forks/SashenJayathilaka/Reddit-Clone.svg)
-![](https://img.shields.io/github/stars/SashenJayathilaka/Reddit-Clone.svg)
-![](https://img.shields.io/github/issues/SashenJayathilaka/Reddit-Clone)
-![](https://img.shields.io/github/last-commit/SashenJayathilaka/Reddit-Clone) -->
-
 </div>
 
 <br />
@@ -32,7 +22,6 @@
   - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   - [Prerequisites](#bangbang-prerequisites)
-  - [Installation](#gear-installation)
   - [Run Locally](#running-run-locally)
   - [Deployment](#deployment)
 - [Vulnerabilities](#Vulnerabilities)
@@ -48,7 +37,7 @@
 - Create Community, Join Community, Leave Community, Upvote and Downvote Posts(you can only post in a community)
 
 <div align="center">
-<a href="https://reddit-sclone.vercel.app"><img width='800rem' src='./demo/ezgif-5-bba0183ff4.gif' alt='image'/></a>
+<a href="https://reddit-breakit.vercel.app/"><img width='800rem' src='./demo/ezgif-5-bba0183ff4.gif' alt='image'/></a>
 </div>
 
 <br />
@@ -56,7 +45,7 @@
 - User Profile Section
   
 <div align="center">
-<a href="https://reddit-sclone.vercel.app"><img width='800rem' src='./demo/ezgif-4-c9902f3c2a.gif' alt='image'/></a>
+<a href="https://reddit-breakit.vercel.app/"><img width='800rem' src='./demo/ezgif-4-c9902f3c2a.gif' alt='image'/></a>
 </div>
 
 <br />
@@ -64,14 +53,14 @@
 - Conversation Section (Reddit Clone Live Chat)
   
 <div align="center">
-<a href="https://reddit-sclone.vercel.app"><img width='800rem' src='./demo/ezgif-1-30bf5499cc.gif' alt='image'/></a>
+<a href="https://reddit-breakit.vercel.app/"><img width='800rem' src='./demo/ezgif-1-30bf5499cc.gif' alt='image'/></a>
 </div>
 
-## <a href="https://reddit-sclone.vercel.app" target="_blank">LIVE DEMO 💥</a>
+## <a href="https://reddit-breakit.vercel.app/" target="_blank">LIVE DEMO 💥</a>
 
 ### :space_invader: Tech Stack
 
-<details>
+
   <summary>Client</summary>
   <ul>
     <li><a href="https://#/">Typescript</a></li>
@@ -79,21 +68,17 @@
     <li><a href="https://reactjs.org/">React.js</a></li>
     <li><a href="https://chakra-ui.com/">Chakra UI</a></li>
   </ul>
-</details>
 
-<details>
+
 <summary>Database</summary>
   <ul>
     <li><a href="https://firebase.google.com">Firebase</a></li>
   </ul>
-</details>
 
-<details>
   <summary>Functions</summary>
   <ul>
     <li><a href="https://firebase.google.com/docs/functions">Cloud Functions for Firebase</a></li>
   </ul>
-</details>
 
 <br />
 
@@ -147,34 +132,6 @@ To run this project, you will need to add the following environment variables to
 
 `NEXT_PUBLIC_BASE_URL`
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-### :gear: Installation
-
-![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![](https://img.shields.io/badge/next.js-20232A?style=for-the-badge&logo=next.js&logoColor=61DAFB)
-
-Install my-project with npm
-
-```
-npx create-next-app@latest --ts my-project
-```
-
-```
-cd my-project
-```
-
-Install dependencies
-
-### In your Next.js project, install Chakra UI
-
-![](https://img.shields.io/badge/UI-Chakra%20UI-green)
-
-#### Installation
-
-Install dependencies
-
-<a href="https://github.com/Am0stafa/Reddit-Clone/blob/main/package.json" target="_blank">🔶 Dependency Info</a>
 
 <!-- Run Locally -->
 
@@ -184,7 +141,7 @@ Install dependencies
 Clone the project
 
 ```bash
-  git clone https://github.com/SashenJayathilaka/Reddit-Clone.git
+  git clone https://github.com/Am0stafa/Reddit-Clone.git
 ```
 
 change directory
@@ -198,6 +155,7 @@ Install dependencies
 ```bash
   npm install
 ```
+<a href="https://github.com/Am0stafa/Reddit-Clone/blob/main/package.json" target="_blank">🔶 Dependency Info</a>
 
 Start the server
 
@@ -205,11 +163,10 @@ Start the server
   npm run dev
 ```
 
-<hr />
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit the app
+```url
+  http://localhost:3000
+```
 
 <hr />
 
@@ -222,7 +179,61 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br>
+<br>
 
-#### Vulnerabilities
+## Vulnerabilities
 
 
+<details>
+  <summary>Reflected XSS</summary>
+  <ul>
+    <li>
+        <details>
+            <summary>Solution</summary>
+            <ul>
+                <li>
+                    there goes the solution
+                </li>
+            </ul>
+        </details>
+    </li>
+    <li>
+    <details>
+        <summary>Hint</summary>
+        <ul>
+            <li>
+                there goes the hit
+            </li>
+        </ul>
+    </details>
+</li>
+  </ul>
+</details>
+<br>
+
+<details>
+  <summary>Stored XSS</summary>
+  <ul>
+    <li>
+        <details>
+            <summary>Solution</summary>
+            <ul>
+                <li>
+                    there goes the solution
+                </li>
+            </ul>
+        </details>
+    </li>
+    <li>
+    <details>
+        <summary>Hint</summary>
+        <ul>
+            <li>
+                there goes the hit
+            </li>
+        </ul>
+    </details>
+</li>
+  </ul>
+</details>
