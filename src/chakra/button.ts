@@ -4,7 +4,7 @@ import type { ComponentStyleConfig } from "@chakra-ui/theme";
 
 //& Control space bar with typescript gives you a list of all of the properties that this interface is expecting
 
-export const Button: ComponentStyleConfig = {
+const Button: ComponentStyleConfig = {
   baseStyle: {
     borderRadius: "60px",
     fontSize: "10pt",
@@ -45,3 +45,5 @@ export const Button: ComponentStyleConfig = {
     },
   },
 };
+
+export default Button;
